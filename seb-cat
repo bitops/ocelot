@@ -1,3 +1,19 @@
 #!/usr/bin/env ruby
 
-puts "hello"
+given_file = ARGV.first
+File.readlines(given_file).each { |line| puts line }
+
+=begin
+Performance:
+test file: /usr/share/dict/words
+
+seb-cat's time:
+real    0m0.808s
+user    0m0.466s
+sys     0m0.313s
+
+cat's     time:
+real    0m0.679s
+user    0m0.002s
+sys     0m0.052s
+=end
