@@ -17,3 +17,10 @@ real    0m0.679s
 user    0m0.002s
 sys     0m0.052s
 ```
+
+INSPIRATION
+===========
+
+[TLDP: Process Substitution](http://tldp.org/LDP/abs/html/process-sub.html)
+[Building Unix-style command line applications](https://practicingruby.com/articles/building-unix-style-command-line-applications)
+[Writing Ruby Scripts That Respect Pipelines](http://www.jstorimer.com/blogs/workingwithcode/7766125-writing-ruby-scripts-that-respect-pipelines)
