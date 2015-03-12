@@ -1,5 +1,5 @@
-README:
-=======
+README
+======
 
 A small ```cat```  implementation I'm doing just for fun. Won't be big and professional like GNU.
 
