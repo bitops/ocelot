@@ -1,7 +1,30 @@
 #!/usr/bin/env ruby
 
-given_files = ARGV.map(&:to_s)
-given_files.each do |file|
-  print File.read(file)
-end
+require 'optparse'
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: ocelot [options]"
 
+  opts.on("-n", "--line-numbers", "Add line numbers") do |ln|
+    options[:line_numbers] = ln
+  end
+  
+  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+    options[:verbose] = v
+  end
+end.parse!
+
+if ARGV.empty?
+  print ARGF.read
+else
+  given_files = ARGV.map(&:to_s)
+  given_files.each do |file|
+    if options[:line_numbers]
+      File.readlines(file).each_with_index do |line, idx|
+        print "#{idx + 1}".rjust(6, " ") + " #{line}"
+      end
+    else
+      print File.read(file)  
+    end
+  end
+end
