@@ -21,7 +21,7 @@ else
   given_files.each do |file|
     if options[:line_numbers]
       File.readlines(file).each_with_index do |line, idx|
-        print "#{idx + 1}".rjust(6, " ") + " #{line}"
+        print ["#{idx + 1}".rjust(6, " "), "  ", "#{line}"].join("")
       end
     else
       print File.read(file)  
