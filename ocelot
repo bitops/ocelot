@@ -5,5 +5,5 @@ unless File.exist?(given_file)
   puts "ocelot: #{given_file}: No such file or directory"
   exit 1
 end
-puts File.read(given_file)
+print File.read(given_file)
 
