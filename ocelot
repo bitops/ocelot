@@ -17,10 +17,6 @@ optparse = OptionParser.new do |opts|
   opts.on("-s", "--squeeze", "Squeeze adjacent empty lines") do |s|
     options[:squeeze] = s
   end  
-  
-  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
-    options[:verbose] = v
-  end
 end
 
 begin
