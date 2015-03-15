@@ -8,6 +8,11 @@ OptionParser.new do |opts|
   opts.on("-n", "--line-numbers", "Add line numbers") do |ln|
     options[:line_numbers] = ln
   end
+
+  opts.on("-b", "--non-blank-line-numbers", "Add line numbers for non-blank lines") do |ln|
+    options[:line_numbers_non_blank] = ln
+    options[:line_numbers] = ln
+  end
   
   opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
     options[:verbose] = v
@@ -20,8 +25,14 @@ else
   given_files = ARGV.map(&:to_s)
   given_files.each do |file|
     if options[:line_numbers]
-      File.readlines(file).each_with_index do |line, idx|
-        print ["#{idx + 1}".rjust(6, " "), "\t", "#{line}"].join("")
+      idx = 1
+      File.readlines(file).each do |line|
+        if options[:line_numbers_non_blank] && line.strip.empty?
+          print line
+        else
+          print ["#{idx}".rjust(6, " "), "\t", "#{line}"].join("")
+          idx += 1
+        end
       end
     else
       print File.read(file)  
