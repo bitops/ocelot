@@ -2,7 +2,7 @@
 
 require 'optparse'
 options = {}
-OptionParser.new do |opts|
+optparse = OptionParser.new do |opts|
   opts.banner = "Usage: ocelot [options]"
 
   opts.on("-n", "--line-numbers", "Add line numbers") do |ln|
@@ -21,7 +21,14 @@ OptionParser.new do |opts|
   opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
     options[:verbose] = v
   end
-end.parse!
+end
+
+begin
+  optparse.parse!
+rescue OptionParser::InvalidOption => e
+  STDERR.write "ocelot: #{e}\nusage: ocelot [-bns] [file ...]\n"
+  exit 1
+end
 
 if ARGV.empty?
   print ARGF.read
@@ -48,6 +55,9 @@ else
           print ["#{idx}".rjust(6, " "), "\t", "#{line}"].join("")
         end
         idx += 1
+        if options[:squeeze]
+          line_was_blank = true if line.strip.empty?
+        end
       end
     end
   end
