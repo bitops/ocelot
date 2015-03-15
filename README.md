@@ -8,14 +8,14 @@ Performance:
 test file: /usr/share/dict/words
 
 ocelot's time:
-real    0m0.719s
-user    0m0.036s
-sys     0m0.060s
+real	0m1.069s
+user	0m0.558s
+sys	0m0.370s
 
 cat's     time:
-real    0m0.679s
-user    0m0.002s
-sys     0m0.052s
+real	0m0.395s
+user	0m0.001s
+sys	0m0.062s
 ```
 
 INSPIRATION
