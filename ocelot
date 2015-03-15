@@ -37,7 +37,7 @@ else
   given_files.each do |file|
     idx = 1
     line_was_blank = false
-    File.readlines(file).each do |line|
+    File.open(file).each_line do |line|
       if options[:squeeze]
         if line.strip.empty? && line_was_blank
           next

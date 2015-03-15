@@ -8,9 +8,9 @@ Performance:
 test file: /usr/share/dict/words
 
 ocelot's time:
-real	0m1.069s
-user	0m0.558s
-sys	0m0.370s
+real	0m1.019s
+user	0m0.577s
+sys	0m0.375s
 
 cat's     time:
 real	0m0.395s
