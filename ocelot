@@ -44,18 +44,15 @@ else
         end
       end
       if (options[:non_blank] && line_is_empty) || (!options[:line_numbers])
-        if options[:squeeze] && line_is_empty
-          line_was_blank = true
-        end
       else
         if options[:line_numbers]
           line_to_print = [line_number.to_s.rjust(6), "\t", line].join("")
         end
-        if options[:squeeze] && line_is_empty
-          line_was_blank = true
-        end
         line_number += 1
       end
+      if options[:squeeze] && line_is_empty
+          line_was_blank = true
+        end
       print line_to_print
     end
   end
