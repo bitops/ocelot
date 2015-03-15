@@ -10,12 +10,12 @@ test file: /usr/share/dict/words
 ocelot's time:
 real	0m1.019s
 user	0m0.577s
-sys	0m0.375s
+sys	    0m0.375s
 
-cat's     time:
+cat's    time:
 real	0m0.395s
 user	0m0.001s
-sys	0m0.062s
+sys	    0m0.062s
 ```
 
 INSPIRATION
