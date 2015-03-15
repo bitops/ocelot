@@ -38,27 +38,29 @@ else
     idx = 1
     line_was_blank = false
     File.open(file).each_line do |line|
+      line_is_empty = line.strip.empty?
+      line_to_print = line
       if options[:squeeze]
-        if line.strip.empty? && line_was_blank
+        if line_is_empty && line_was_blank
           next
-        elsif !line.strip.empty?
+        elsif !line_is_empty
           line_was_blank = false
         end
       end
-      if (options[:non_blank] && line.strip.empty?) || (!options[:line_numbers])
-        print line
+      if (options[:non_blank] && line_is_empty) || (!options[:line_numbers])
         if options[:squeeze]
-          line_was_blank = true if line.strip.empty?
+          line_was_blank = true if line_is_empty
         end
       else
         if options[:line_numbers]
-          print ["#{idx}".rjust(6, " "), "\t", "#{line}"].join("")
+          line_to_print = ["#{idx}".rjust(6, " "), "\t", "#{line}"].join("")
+        end
+        if options[:squeeze]
+          line_was_blank = true if line_is_empty
         end
         idx += 1
-        if options[:squeeze]
-          line_was_blank = true if line.strip.empty?
-        end
       end
+      print line_to_print
     end
   end
 end
