@@ -31,7 +31,7 @@ if ARGV.empty?
 else
   given_files = ARGV.map(&:to_s)
   given_files.each do |file|
-    idx = 1
+    line_number = 1
     line_was_blank = false
     File.open(file).each_line do |line|
       line_is_empty = line.strip.empty?
@@ -44,17 +44,17 @@ else
         end
       end
       if (options[:non_blank] && line_is_empty) || (!options[:line_numbers])
-        if options[:squeeze]
-          line_was_blank = true if line_is_empty
+        if options[:squeeze] && line_is_empty
+          line_was_blank = true
         end
       else
         if options[:line_numbers]
-          line_to_print = ["#{idx}".rjust(6, " "), "\t", "#{line}"].join("")
+          line_to_print = [line_number.to_s.rjust(6), "\t", line].join("")
         end
-        if options[:squeeze]
-          line_was_blank = true if line_is_empty
+        if options[:squeeze] && line_is_empty
+          line_was_blank = true
         end
-        idx += 1
+        line_number += 1
       end
       print line_to_print
     end
