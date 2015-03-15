@@ -10,9 +10,13 @@ OptionParser.new do |opts|
   end
 
   opts.on("-b", "--non-blank-line-numbers", "Add line numbers for non-blank lines") do |ln|
-    options[:line_numbers_non_blank] = ln
+    options[:non_blank] = ln
     options[:line_numbers] = ln
   end
+
+  opts.on("-s", "--squeeze", "Squeeze adjacent empty lines") do |s|
+    options[:squeeze] = s
+  end  
   
   opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
     options[:verbose] = v
@@ -24,18 +28,27 @@ if ARGV.empty?
 else
   given_files = ARGV.map(&:to_s)
   given_files.each do |file|
-    if options[:line_numbers]
-      idx = 1
-      File.readlines(file).each do |line|
-        if options[:line_numbers_non_blank] && line.strip.empty?
-          print line
-        else
-          print ["#{idx}".rjust(6, " "), "\t", "#{line}"].join("")
-          idx += 1
+    idx = 1
+    line_was_blank = false
+    File.readlines(file).each do |line|
+      if options[:squeeze]
+        if line.strip.empty? && line_was_blank
+          next
+        elsif !line.strip.empty?
+          line_was_blank = false
         end
       end
-    else
-      print File.read(file)  
+      if (options[:non_blank] && line.strip.empty?) || (!options[:line_numbers])
+        print line
+        if options[:squeeze]
+          line_was_blank = true if line.strip.empty?
+        end
+      else
+        if options[:line_numbers]
+          print ["#{idx}".rjust(6, " "), "\t", "#{line}"].join("")
+        end
+        idx += 1
+      end
     end
   end
 end
